@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <canvas id="bgCanvas"></canvas>
+
+
+  <div class="content">
+      <h1>Welcome to <span>2026</span> ✨</h1>
+      <p>Time flies when you’re building dreams.</p>
+      <button>Start the Journey</button>
+  </div>
+
+<script>
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 60; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: Math.random() * 6 + 2,
+    speedY: Math.random() * 1 + 0.3
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,0.4)";
+    ctx.fill();
+
+    p.y -= p.speedY;
+
+    if (p.y < 0) {
+      p.y = canvas.height;
+      p.x = Math.random() * canvas.width;
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
